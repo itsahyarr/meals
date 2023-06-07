@@ -24,33 +24,49 @@ class MealDetailScreen extends ConsumerWidget {
         title: Text(meal.title),
         actions: [
           IconButton(
-              onPressed: () {
-                // onToggleFavorite(meal);
-                final wasAdded = ref.read(
-                  favoriteMealsProvider.notifier,
-                );
+            onPressed: () {
+              // onToggleFavorite(meal);
+              final wasAdded = ref.read(
+                favoriteMealsProvider.notifier,
+              );
 
-                var favorited = wasAdded.toggleMealFavorite(meal);
-                // ref.refresh(favoriteMealsProvider);
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(favorited
-                      ? 'Meal added as a favorite.'
-                      : 'Meal removed.'),
-                ));
+              var favorited = wasAdded.toggleMealFavorite(meal);
+              // ref.refresh(favoriteMealsProvider);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                    favorited ? 'Meal added as a favorite.' : 'Meal removed.'),
+              ));
+            },
+            icon: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (child, animation) {
+                return RotationTransition(
+                  turns:
+                      Tween<double>(begin: 0.85, end: 1.0).animate(animation),
+                  child: child,
+                );
               },
-              icon: Icon(isFavorite ? Icons.star : Icons.star_border)),
+              child: Icon(
+                isFavorite ? Icons.star : Icons.star_border,
+                key: ValueKey(isFavorite),
+              ),
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              meal.imageUrl,
-              width: double.infinity,
-              height: 300,
-              fit: BoxFit.cover,
+            Hero(
+              tag: meal.id,
+              child: Image.network(
+                meal.imageUrl,
+                width: double.infinity,
+                height: 300,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(
               height: 14,

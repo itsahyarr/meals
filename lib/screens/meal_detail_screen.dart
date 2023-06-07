@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:meals/models/meal.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals/providers/meals_provider.dart';
-
 import '../providers/favorites_provider.dart';
 
 class MealDetailScreen extends ConsumerWidget {
   const MealDetailScreen({
     super.key,
     required this.meal,
-    // required this.onToggleFavorite,
   });
   final Meal meal;
-  // final void Function(Meal meal) onToggleFavorite;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,13 +21,11 @@ class MealDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              // onToggleFavorite(meal);
               final wasAdded = ref.read(
                 favoriteMealsProvider.notifier,
               );
 
               var favorited = wasAdded.toggleMealFavorite(meal);
-              // ref.refresh(favoriteMealsProvider);
               ScaffoldMessenger.of(context).clearSnackBars();
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
@@ -57,7 +51,6 @@ class MealDetailScreen extends ConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Hero(
               tag: meal.id,
@@ -86,7 +79,6 @@ class MealDetailScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
-                // textAlign: TextAlign.center,
               ),
             const SizedBox(height: 24),
             Text(

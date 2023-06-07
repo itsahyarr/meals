@@ -5,16 +5,6 @@ import '../providers/filters_provider.dart';
 class FiltersScreen extends ConsumerWidget {
   const FiltersScreen({super.key});
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   final activeFilters = ref.read(filtersProvider);
-  //   _glutenFreeFilterSet = activeFilters[Filter.glutenFree]!;
-  //   _lactoseFreeFilterSet = activeFilters[Filter.lactoseFree]!;
-  //   _vegetarianFilterSet = activeFilters[Filter.vegetarian]!;
-  //   _veganFilterSet = activeFilters[Filter.vegan]!;
-  // }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeFilters = ref.watch(filtersProvider);
